@@ -24,7 +24,12 @@
     background-color: aliceblue;
 }
 
-.display input{
+.display {
+    display: flex;
+    flex-direction: column;
+}
+
+.displayValue {
     font-size: large;
     height: 100px;
     width: 240px;
@@ -32,6 +37,11 @@
     border: none;
     text-align: end;
     color: rgb(0, 0, 0);
+    padding-right: 10px;
+}
+
+.operador {
+    color: white;
 }
 
 .boton {
