@@ -50,7 +50,6 @@ capturarNumero = (operador) => {
 
                         valoresInput.pop();
                         valoresInput[0] = resultado;
-
                     }
                    valoresTemporales = "";
                    break;
@@ -78,23 +77,39 @@ capturarNumero = (operador) => {
                    displayOperador.value = "";
                    break;
                case "/":
-                   display.value = "division";
-                   break;
-                case "+":
-                   display.value = "esto es una suma";
+                   operadorTemporal = operador;
+                    valoresInput.push(parseInt(valoresTemporales));
+                    console.log(valoresInput[1]);
+                    displayOperador.value = valoresInput[0] + "/";
+
+                    if (valoresInput[0] != undefined && valoresInput[1] != undefined) {
+                        let resultado = parseInt(valoresInput[0]) / parseInt(valoresInput[1]);
+
+                        display.value = resultado;
+                        displayOperador.value = valoresInput[0] + "/" + valoresInput[1]
+                        
+                        valoresInput.pop();
+                        valoresInput[0] = resultado;
+                    }
+                   valoresTemporales = "";
                    break;
                case "*":
-                   display.value = "multiplicacion";
-                   break;   
-                case "+":
-                   display.value = "esto es una suma";
-                   break;
-               case "DEL":
-                   display.value = "eliminar";
-                   break;  
-                case "+":
-                   display.value = "esto es una suma";
-                   break;
+                   operadorTemporal = operador;
+                    valoresInput.push(parseInt(valoresTemporales));
+                    console.log(valoresInput[1]);
+                    displayOperador.value = valoresInput[0] + "*";
+
+                    if (valoresInput[0] != undefined && valoresInput[1] != undefined) {
+                        let resultado = parseInt(valoresInput[0]) * parseInt(valoresInput[1]);
+
+                        display.value = resultado;
+                        displayOperador.value = valoresInput[0] + "*" + valoresInput[1]
+                        
+                        valoresInput.pop();
+                        valoresInput[0] = resultado;
+                    }
+                   valoresTemporales = "";
+                   break; 
                case "=":
                    if(operadorTemporal == "+"){
                     if(valoresInput[0] != undefined && valoresInput[1] != undefined){
@@ -131,6 +146,44 @@ capturarNumero = (operador) => {
                     let resultado = parseInt(valoresInput[0]) - parseInt(valoresTemporales);
                     display.value = resultado;
                     displayOperador.value = valoresInput[0] + "-" + valoresTemporales;
+                    valoresTemporales = "";
+                    valoresInput[0] = resultado;
+
+                   } else if(operadorTemporal == "/") {
+                    if(valoresInput[0] != undefined && valoresInput[1] != undefined){
+                        let resultado = parseInt(valoresInput[0]) / parseInt(valoresInput[1]);
+                       
+                        display.value = resultado;
+                        displayOperador.value = valoresInput[0] + "/" + valoresInput[1]
+                       
+                        valoresInput.pop();
+                        valoresInput[0] = resultado;
+                        valoresTemporales = "";
+                        break;
+                    }
+
+                    let resultado = parseInt(valoresInput[0]) / parseInt(valoresTemporales);
+                    display.value = resultado;
+                    displayOperador.value = valoresInput[0] + "/" + valoresTemporales;
+                    valoresTemporales = "";
+                    valoresInput[0] = resultado;
+
+                   } else if(operadorTemporal == "*") {
+                    if(valoresInput[0] != undefined && valoresInput[1] != undefined){
+                        let resultado = parseInt(valoresInput[0]) * parseInt(valoresInput[1]);
+                       
+                        display.value = resultado;
+                        displayOperador.value = valoresInput[0] + "*" + valoresInput[1]
+                       
+                        valoresInput.pop();
+                        valoresInput[0] = resultado;
+                        valoresTemporales = "";
+                        break;
+                    }
+
+                    let resultado = parseInt(valoresInput[0]) * parseInt(valoresTemporales);
+                    display.value = resultado;
+                    displayOperador.value = valoresInput[0] + "*" + valoresTemporales;
                     valoresTemporales = "";
                     valoresInput[0] = resultado;
 
