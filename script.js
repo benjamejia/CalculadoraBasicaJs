@@ -1,227 +1,80 @@
-const botonNumero1 = document.getElementById("number1");
-const botonNumero2 = document.getElementById("number2");
-const botonNumero3 = document.getElementById("number3");
-const botonNumero4 = document.getElementById("number4");
-const botonNumero5 = document.getElementById("number5");
-const botonNumero6 = document.getElementById("number6");
-const botonNumero7 = document.getElementById("number7");
-const botonNumero8 = document.getElementById("number8");
-const botonNumero9 = document.getElementById("number9");
-const botonNumero0 = document.getElementById("number0");
-
 const display = document.getElementById("displayValue");
 const displayOperador = document.getElementById("operador");
 
 const botones = document.querySelectorAll(".boton");
-
-let valoresInput = [];
-let valoresTemporales = "";
-let operadorTemporal = ""; 
+let primerNumero = null;
+let segundoNumero = null;
+let operadorPendiente = null;
+let resultadoOperacion = null;
 
 botones.forEach((boton) => {  
     boton.addEventListener("click", () => {
         display.value += boton.textContent;
         capturarNumero(boton.textContent);
+        if(boton.textContent == "C"){
+            LimpiarDatos();
+        }
     })
 })
  
-capturarNumero = (operador) => {
-   let valorInput = parseInt(operador);
-   
-    switch(valorInput){
-        case 0: case 1: case 2: case 3: case 4:
-        case 5: case 6: case 7: case 8: case 9:
-           valoresTemporales = valoresTemporales + operador;
-           console.log(valoresTemporales);
-           display.value = valoresTemporales;
-           break;
-        default: 
-           switch(operador) {
-               case "+":
-                    operadorTemporal = operador;
-                    valoresInput.push(parseInt(valoresTemporales));
-                    displayOperador.value = valoresInput[0] + "+";
+function LimpiarDatos(){
+    primerNumero = null;
+    segundoNumero = null;
+    operadorPendiente = null;
+    resultadoOperacion = null;
+    display.value = "";
+} 
 
-                    if (valoresInput[0] != undefined && valoresInput[1] != undefined) {
-                        let resultado = parseInt(valoresInput[0]) + parseInt(valoresInput[1]);
-
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "+" + valoresInput[1];
-
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                    }
-                   valoresTemporales = "";
-                   break;
-               case "-":
-                    operadorTemporal = operador;
-                    valoresInput.push(parseInt(valoresTemporales));
-                    console.log(valoresInput[1]);
-                    displayOperador.value = valoresInput[0] + "-";
-
-                    if (valoresInput[0] != undefined && valoresInput[1] != undefined) {
-                        let resultado = parseInt(valoresInput[0]) - parseInt(valoresInput[1]);
-
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "-" + valoresInput[1]
-                        
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                    }
-                   valoresTemporales = "";
-                   break;
-                case "C":
-                   display.value = "";
-                   valoresInput = [];
-                   valoresTemporales = "";
-                   displayOperador.value = "";
-                   break;
-               case "/":
-                   operadorTemporal = operador;
-                    valoresInput.push(parseInt(valoresTemporales));
-                    console.log(valoresInput[1]);
-                    displayOperador.value = valoresInput[0] + "/";
-
-                    if (valoresInput[0] != undefined && valoresInput[1] != undefined) {
-                        let resultado = parseInt(valoresInput[0]) / parseInt(valoresInput[1]);
-
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "/" + valoresInput[1]
-                        
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                    }
-                   valoresTemporales = "";
-                   break;
-               case "*":
-                   operadorTemporal = operador;
-                    valoresInput.push(parseInt(valoresTemporales));
-                    console.log(valoresInput[1]);
-                    displayOperador.value = valoresInput[0] + "*";
-
-                    if (valoresInput[0] != undefined && valoresInput[1] != undefined) {
-                        let resultado = parseInt(valoresInput[0]) * parseInt(valoresInput[1]);
-
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "*" + valoresInput[1]
-                        
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                    }
-                   valoresTemporales = "";
-                   break; 
-               case "=":
-                   if(operadorTemporal == "+"){
-                    if(valoresInput[0] != undefined && valoresInput[1] != undefined){
-                        let resultado = parseInt(valoresInput[0]) + parseInt(valoresInput[1]);
-                        
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "+" + valoresInput[1]
-                        
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                        valoresTemporales = "";
-                        break;
-                    }
-
-                    let resultado = parseInt(valoresInput[0]) + parseInt(valoresTemporales);
-                    display.value = resultado;
-                    displayOperador.value = valoresInput[0] + "+" + valoresTemporales;
-                    valoresTemporales = "";
-                    valoresInput[0] = resultado;
-
-                   } else if(operadorTemporal == "-") {
-                    if(valoresInput[0] != undefined && valoresInput[1] != undefined){
-                        let resultado = parseInt(valoresInput[0]) - parseInt(valoresInput[1]);
-                       
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "-" + valoresInput[1]
-                       
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                        valoresTemporales = "";
-                        break;
-                    }
-
-                    let resultado = parseInt(valoresInput[0]) - parseInt(valoresTemporales);
-                    display.value = resultado;
-                    displayOperador.value = valoresInput[0] + "-" + valoresTemporales;
-                    valoresTemporales = "";
-                    valoresInput[0] = resultado;
-
-                   } else if(operadorTemporal == "/") {
-                    if(valoresInput[0] != undefined && valoresInput[1] != undefined){
-                        let resultado = parseInt(valoresInput[0]) / parseInt(valoresInput[1]);
-                       
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "/" + valoresInput[1]
-                       
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                        valoresTemporales = "";
-                        break;
-                    }
-
-                    let resultado = parseInt(valoresInput[0]) / parseInt(valoresTemporales);
-                    display.value = resultado;
-                    displayOperador.value = valoresInput[0] + "/" + valoresTemporales;
-                    valoresTemporales = "";
-                    valoresInput[0] = resultado;
-
-                   } else if(operadorTemporal == "*") {
-                    if(valoresInput[0] != undefined && valoresInput[1] != undefined){
-                        let resultado = parseInt(valoresInput[0]) * parseInt(valoresInput[1]);
-                       
-                        display.value = resultado;
-                        displayOperador.value = valoresInput[0] + "*" + valoresInput[1]
-                       
-                        valoresInput.pop();
-                        valoresInput[0] = resultado;
-                        valoresTemporales = "";
-                        break;
-                    }
-
-                    let resultado = parseInt(valoresInput[0]) * parseInt(valoresTemporales);
-                    display.value = resultado;
-                    displayOperador.value = valoresInput[0] + "*" + valoresTemporales;
-                    valoresTemporales = "";
-                    valoresInput[0] = resultado;
-
-                   }
-                   break;    
-           }
-           break;
+let capturarNumero = (operador) => {
+    if(!isNaN(Number(operador))){
+        //aqui verificamos si hay un operador seleccionado sino para capturar el primer numero
+        if(operadorPendiente == null){
+            //aqui verificamos si hay un resultado previo para tomarlo como primer numero
+            if(resultadoOperacion != null){
+                display.value = "";
+                primerNumero = resultadoOperacion;
+                resultadoOperacion = null;
+            }else{
+                primerNumero = display.value;
+                resultadoOperacion = null;
+            }
+        }else{ 
+            if(resultadoOperacion != null){
+                primerNumero = resultadoOperacion;
+                resultadoOperacion = null;
+                segundoNumero = display.value;
+            }else{
+                segundoNumero = display.value;
+            }
+        }
+    }else{
+        if(operador == "="){
+            Calcular(primerNumero,segundoNumero,operadorPendiente);
+            resultadoOperacion = display.value;
+            operadorPendiente = null;
+            operador = null;
+            displayOperador.value = null;
+        }else{
+            operadorPendiente = operador;
+            displayOperador.value = operador;
+            display.value = "";
+        }
     }
 }
 
-function adicion(){
-    let resultado = 0;
-    for(let i = 0; i < valoresInput.length; i++){
-        resultado = resultado + parseInt(valoresInput[i]);
-    }
-    display.value = resultado;
+function Calcular(num1,num2,operador){
+   //tenemos que guardar el primer numero
+   //tenemos que guardar el operador y limpiar la pantalla
+   // presionamos igual para mostrar resultado, se usa el primer numero, el operador y el segundo numero
+   if(isNaN(Number(num1)) || isNaN(Number(num2))){
+    display.value = "";
+    return;
+   }else if(operador == "+"){
+    display.value = +num1 + +num2;
+   }else if(operador == "-"){
+    display.value = +num1 - +num2;
+   }else if(operador == "*"){
+    display.value = +num1 * +num2;
+   }
 }
 
-function sustraccion(){
-    let resultado = 0;
-    for(let i = 0; i < valoresInput.length; i++){
-        resultado = resultado - parseInt(valoresInput[i]);
-    }
-    display.value = resultado;
-}
-
-function multipliacion(){
-    let resultado = 0;
-    for(let i = 0; i < valoresInput.length; i++){
-        resultado = resultado * parseInt(valoresInput[i]);
-    }
-    display.value = resultado;
-}
-
-function division(){
-    let resultado = 0;
-    for(let i = 0; i < valoresInput.length; i++){
-        resultado = resultado / parseInt(valoresInput[i]);
-    }
-    display.value = resultado;
-}
