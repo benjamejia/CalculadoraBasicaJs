@@ -75,6 +75,8 @@ function Calcular(num1,num2,operador){
     display.value = +num1 - +num2;
    }else if(operador == "*"){
     display.value = +num1 * +num2;
+   }else if(operador == "/"){
+    display.value = +num1 / +num2;
    }
 }
 
